@@ -1,7 +1,7 @@
 // components/BackButton.tsx
 import React from 'react';
 import { TouchableOpacity, Text, StyleSheet } from 'react-native';
-
+import Icon from 'react-native-vector-icons/Feather';
 interface Props {
   onPress: () => void;
 }
@@ -9,7 +9,7 @@ interface Props {
 export default function BackButton({ onPress }: Props) {
   return (
     <TouchableOpacity style={styles.button} onPress={onPress}>
-      <Text style={styles.text}>Back</Text>
+      <Icon name="arrow-left" size={22} color="#000" />
     </TouchableOpacity>
   );
 }
@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 50,
     left: 20,
-    backgroundColor: 'rgba(0,0,0,0.5)',
+    backgroundColor: 'rgba(99, 184, 241, 0.5)',
     padding: 12,
     borderRadius: 8,
   },
