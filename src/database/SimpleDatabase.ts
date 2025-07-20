@@ -128,12 +128,12 @@ class SimpleDatabase {
   // Generate simple chat title from first message
   private generateChatTitle(text: string): string {
     const words = text.split(' ').slice(0, 4).join(' ');
-    return words.length > 30 ? words.substring(0, 30) + '...' : words;
+    return words.length > 20 ? words.substring(0, 30) + '...' : words;
   }
 
   // Generate new chat ID
   generateChatId(): string {
-    return 'chat_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+    return 'chat_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
   }
 }
 

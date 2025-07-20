@@ -5,13 +5,11 @@ import { GEMINI_API } from '../config';
 import SimpleDatabase, { Message } from '../database/SimpleDatabase';
 import Sidebar from '../components/Sidebar';
 import Icon from 'react-native-vector-icons/FontAwesome';
-import BackButton from '../components/BackButton';
 import { NativeStackScreenProps } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../App';
+import EmptyState from '../components/EmptyState';
 
 type BotScreenProps = NativeStackScreenProps<RootStackParamList, 'Bot'>;
-
-const { width } = Dimensions.get('window');
 
 export default function BotScreen({ navigation }: BotScreenProps) {
   const [messages, setMessages] = useState<Message[]>([]);
@@ -20,7 +18,6 @@ export default function BotScreen({ navigation }: BotScreenProps) {
   const [currentChatId, setCurrentChatId] = useState('');
   const [sidebarVisible, setSidebarVisible] = useState(false);
   const [dbReady, setDbReady] = useState(false);
-
   const flatListRef = useRef<FlatList>(null);
   const fadeAnim = useRef(new Animated.Value(0)).current;
   const slideAnim = useRef(new Animated.Value(50)).current;
@@ -235,30 +232,6 @@ export default function BotScreen({ navigation }: BotScreenProps) {
     </Animated.View>
   );
 
-  const EmptyState = () => (
-    <Animated.View 
-      style={{ opacity: fadeAnim }}
-      className="flex-1 justify-center items-center px-8"
-    >
-      <View className="items-center">
-        <View className="w-20 h-20 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center mb-6 shadow-lg">
-          <Text className="text-white text-3xl">🥗</Text>
-        </View>
-        <Text className="text-white text-2xl font-bold mb-3 text-center">
-          Welcome to NutriAI
-        </Text>
-        <Text className="text-gray-400 text-center leading-relaxed mb-6">
-          Your personal nutrition assistant is here to help! Ask me about food nutrition, healthy recipes, or diet advice.
-        </Text>
-        <View className="bg-gray-800 p-4 rounded-2xl border border-gray-700">
-          <Text className="text-gray-300 text-sm text-center">
-            💡 Try asking: "What are the benefits of eating spinach?" or "Suggest a healthy breakfast"
-          </Text>
-        </View>
-      </View>
-    </Animated.View>
-  );
-
   return (
     <SafeAreaView className="flex-1 bg-gray-900">
       {/* Enhanced Header with Gradient */}
@@ -329,7 +302,7 @@ export default function BotScreen({ navigation }: BotScreenProps) {
         />
         
         {messages.length === 0 ? (
-          <EmptyState />
+          <EmptyState fadeAnim={fadeAnim} />
         ) : (
           <FlatList
             ref={flatListRef}
