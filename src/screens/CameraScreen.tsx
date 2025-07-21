@@ -151,5 +151,3 @@ const styles = StyleSheet.create({
   },
 });
 
-//gemini
-//AIzaSyCX2KWqmxAewgfRjHCgPDgWnYUWIZaXBUY
