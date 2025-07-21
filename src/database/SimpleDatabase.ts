@@ -54,7 +54,7 @@ class SimpleDatabase {
     }
   }
 
-  // Save message
+
   async saveMessage(role: 'user' | 'bot', text: string, chatId: string): Promise<void> {
     if (!this.db) throw new Error('Database not initialized');
     
@@ -63,14 +63,12 @@ class SimpleDatabase {
       [role, text, chatId]
     );
 
-    // Update chat's last message
     await this.db.executeSql(
       'INSERT OR REPLACE INTO chats (id, title, last_message, timestamp) VALUES (?, ?, ?, CURRENT_TIMESTAMP)',
       [chatId, this.generateChatTitle(text), text]
     );
   }
 
-  // Get messages for a chat
   async getMessages(chatId: string): Promise<Message[]> {
     if (!this.db) throw new Error('Database not initialized');
     
@@ -94,7 +92,6 @@ class SimpleDatabase {
     return messages;
   }
 
-  // Get recent chats
   async getRecentChats(limit: number = 5): Promise<Chat[]> {
     if (!this.db) throw new Error('Database not initialized');
     
@@ -117,7 +114,6 @@ class SimpleDatabase {
     return chats;
   }
 
-  // Delete a chat
   async deleteChat(chatId: string): Promise<void> {
     if (!this.db) throw new Error('Database not initialized');
     
@@ -125,13 +121,12 @@ class SimpleDatabase {
     await this.db.executeSql('DELETE FROM chats WHERE id = ?', [chatId]);
   }
 
-  // Generate simple chat title from first message
   private generateChatTitle(text: string): string {
     const words = text.split(' ').slice(0, 4).join(' ');
     return words.length > 20 ? words.substring(0, 30) + '...' : words;
   }
 
-  // Generate new chat ID
+
   generateChatId(): string {
     return 'chat_' + Date.now() + '_' + Math.random().toString(36).substring(2, 11);
   }

@@ -22,7 +22,6 @@ interface CloudinaryConfig {
       
       const formData = new FormData();
       
-      // Add the image file
       formData.append('file', {
         uri: filePath,
         type: 'image/jpeg',
